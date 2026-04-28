@@ -22,7 +22,7 @@ define('DB_PASS', getenv('DB_PASS') ?: '');
 define('DB_CHARSET', 'utf8mb4');
 
 // JWT Configuration (Different secret than electronics)
-define('JWT_SECRET', getenv('JWT_SECRET') ?: 'automotive-secret-key-change-this-2024-autospares-12345');
+define('JWT_SECRET', getenv('JWT_SECRET') ?: 'ftwegjadvblhfdewj6583279gyusdackbiweaiu237624387gif3g7823g8fiqgfkt382');
 define('JWT_EXPIRY', getenv('JWT_EXPIRY') ?: 86400); // 24 hours
 
 // Password Configuration
