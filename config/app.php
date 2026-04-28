@@ -37,11 +37,10 @@ define('DEFAULT_PAGE', 1);
 // User Roles (Automotive-specific terminology)
 define('USER_ROLE_ADMIN', 'Admin');
 define('USER_ROLE_CUSTOMER', 'Customer');
-define('USER_ROLE_MECHANIC', 'Mechanic');
 define('USER_ROLE_GUEST', 'Guest');
-define('VALID_ROLES', [USER_ROLE_ADMIN, USER_ROLE_CUSTOMER, USER_ROLE_MECHANIC]);
+define('VALID_ROLES', [USER_ROLE_ADMIN, USER_ROLE_CUSTOMER, USER_ROLE_GUEST]);
 
-// Order status values must match the database enum values exactly.
+// Order status values 
 define('ORDER_STATUS_PENDING', 'Pending');
 define('ORDER_STATUS_COMPLETED', 'Completed');
 define('ORDER_STATUS_CANCELED', 'Canceled');
@@ -54,7 +53,7 @@ define('VALID_ORDER_STATUSES', [
     ORDER_STATUS_FAILED,
 ]);
 
-// Payment status values must match the database enum values exactly.
+// Payment status values 
 define('PAYMENT_STATUS_PENDING', 'Pending');
 define('PAYMENT_STATUS_COMPLETED', 'Completed');
 define('PAYMENT_STATUS_FAILED', 'Failed');
@@ -107,15 +106,15 @@ define('CORS_MAX_AGE', 86400);
 
 // Upload Configuration
 define('UPLOAD_DIR', __DIR__ . '/../uploads');
-define('UPLOAD_MAX_SIZE', 5242880); // 5MB in bytes
+define('UPLOAD_MAX_SIZE', 5242880); 
 define('UPLOAD_ALLOWED_TYPES', ['image/jpeg', 'image/png', 'image/webp']);
 define('UPLOAD_ALLOWED_EXTENSIONS', ['jpg', 'jpeg', 'png', 'webp']);
 
 // API Configuration
 define('API_VERSION', 'v1');
 define('API_PREFIX', '/api/' . API_VERSION);
-define('API_RATE_LIMIT', 100); // requests per minute
-define('API_RATE_WINDOW', 60); // seconds
+define('API_RATE_LIMIT', 100); 
+define('API_RATE_WINDOW', 60); 
 
 // Feature Flags
 define('FEATURE_PRODUCT_REVIEWS', true);

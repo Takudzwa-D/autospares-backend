@@ -1,9 +1,5 @@
 <?php
 
-/**
- * CORS compatibility shim.
- * Primary CORS values are defined in config/app.php.
- */
 
 if (!defined('CORS_ENABLED')) {
     define('CORS_ENABLED', true);
