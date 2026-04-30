@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Configuration File for Automotive eCommerce Backend
- * Centralized settings for application, database, authentication, and API
- */
-
 // Environment Setup
 define('APP_ENV', getenv('APP_ENV') ?: 'development');
 define('APP_DEBUG', APP_ENV === 'development');
