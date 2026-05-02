@@ -6,7 +6,7 @@ define('APP_DEBUG', APP_ENV === 'development');
 define('APP_NAME', 'AutoSpares Backend');
 define('APP_VERSION', '2.0');
 define('APP_URL', getenv('APP_URL') ?: 'http://localhost/ecommerce_backend');
-define('FRONTEND_URL', getenv('FRONTEND_URL') ?: 'http://localhost:5173');
+define('FRONTEND_URL', getenv('FRONTEND_URL') ?: 'https://autospares-alpha.vercel.app/');
 
 // Database Configuration
 define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
@@ -89,7 +89,7 @@ define('HTTP_SERVICE_UNAVAILABLE', 503);
 define('CORS_ENABLED', true);
 define('CORS_ORIGINS', [
     'http://localhost:3000',
-    'http://localhost:5173',
+    'https://autospares-alpha.vercel.app/',
     'http://localhost:8080',
     'http://127.0.0.1:3000',
     getenv('FRONTEND_URL') ?: null,

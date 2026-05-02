@@ -71,9 +71,9 @@ if (CORS_ENABLED) {
         header('Access-Control-Allow-Origin: ' . $origin);
     } elseif (empty($allowed_origins)) {
         header('Access-Control-Allow-Origin: *');
-    } elseif (in_array('http://localhost:5173', $allowed_origins, true)) {
+    } elseif (in_array('https://autospares-alpha.vercel.app/', $allowed_origins, true)) {
         // Safe local-dev fallback for Vite frontend when no Origin header is present.
-        header('Access-Control-Allow-Origin: http://localhost:5173');
+        header('Access-Control-Allow-Origin: https://autospares-alpha.vercel.app/');
     }
 }
 header('Access-Control-Allow-Methods: ' . implode(', ', CORS_METHODS));
