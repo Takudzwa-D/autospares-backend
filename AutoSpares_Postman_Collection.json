@@ -1,0 +1,856 @@
+{
+    "info": {
+        "name": "AutoSpares eCommerce Backend API",
+        "description": "Complete API collection for AutoSpares automotive parts ecommerce platform",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "version": "1.0.0"
+    },
+    "item": [
+        {
+            "name": "Authentication",
+            "item": [
+                {
+                    "name": "Register User",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\",\n  \"phoneNumber\": \"0712345678\",\n  \"address\": \"123 Main Street\",\n  \"city\": \"Harare\",\n  \"country\": \"Zimbabwe\"\n}"
+                        },
+                        "url": {
+                            "raw": "http://localhost/ecommerce_backend/api/auth/register",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "ecommerce_backend",
+                                "api",
+                                "auth",
+                                "register"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Login",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
+                        },
+                        "url": {
+                            "raw": "http://localhost/ecommerce_backend/api/auth/login",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "ecommerce_backend",
+                                "api",
+                                "auth",
+                                "login"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Profile",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer YOUR_TOKEN_HERE",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost/ecommerce_backend/api/auth/profile",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "ecommerce_backend",
+                                "api",
+                                "auth",
+                                "profile"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Profile",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer YOUR_TOKEN_HERE",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"firstName\": \"Johnny\",\n  \"lastName\": \"Smith\",\n  \"phoneNumber\": \"0712999999\",\n  \"address\": \"456 New Avenue\"\n}"
+                        },
+                        "url": {
+                            "raw": "http://localhost/ecommerce_backend/api/auth/profile",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "ecommerce_backend",
+                                "api",
+                                "auth",
+                                "profile"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Logout",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer YOUR_TOKEN_HERE",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost/ecommerce_backend/api/auth/logout",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "ecommerce_backend",
+                                "api",
+                                "auth",
+                                "logout"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Categories",
+            "item": [
+                {
+                    "name": "Get All Categories",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost/ecommerce_backend/api/categories?page=1&limit=10",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "ecommerce_backend",
+                                "api",
+                                "categories"
+                            ],
+                            "query": [
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "10"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Sub-Categories",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost/ecommerce_backend/api/sub-categories?categoryId=1&page=1&limit=10",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "ecommerce_backend",
+                                "api",
+                                "sub-categories"
+                            ],
+                            "query": [
+                                {
+                                    "key": "categoryId",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "10"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Category Products",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost/ecommerce_backend/api/categories/products?categoryId=1&page=1&limit=10",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "ecommerce_backend",
+                                "api",
+                                "categories",
+                                "products"
+                            ],
+                            "query": [
+                                {
+                                    "key": "categoryId",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "10"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Brands & Models",
+            "item": [
+                {
+                    "name": "Get All Brands",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost/ecommerce_backend/api/brands?page=1&limit=10",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "ecommerce_backend",
+                                "api",
+                                "brands"
+                            ],
+                            "query": [
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "10"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Models by Brand",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost/ecommerce_backend/api/brands/models?brandId=1&page=1&limit=10",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "ecommerce_backend",
+                                "api",
+                                "brands",
+                                "models"
+                            ],
+                            "query": [
+                                {
+                                    "key": "brandId",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "10"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Products by Brand",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost/ecommerce_backend/api/brands/products?brandId=1&page=1&limit=10",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "ecommerce_backend",
+                                "api",
+                                "brands",
+                                "products"
+                            ],
+                            "query": [
+                                {
+                                    "key": "brandId",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "10"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Products",
+            "item": [
+                {
+                    "name": "Get All Products",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost/ecommerce_backend/api/products?page=1&limit=10",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "ecommerce_backend",
+                                "api",
+                                "products"
+                            ],
+                            "query": [
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "10"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Single Product",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost/ecommerce_backend/api/products/get?id=1",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "ecommerce_backend",
+                                "api",
+                                "products",
+                                "get"
+                            ],
+                            "query": [
+                                {
+                                    "key": "id",
+                                    "value": "1"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Search Products",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost/ecommerce_backend/api/products/search?q=engine&page=1&limit=10",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "ecommerce_backend",
+                                "api",
+                                "products",
+                                "search"
+                            ],
+                            "query": [
+                                {
+                                    "key": "q",
+                                    "value": "engine"
+                                },
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "10"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Add Product (Admin)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer YOUR_ADMIN_TOKEN_HERE",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"subCategoryId\": 1,\n  \"modelId\": 1,\n  \"name\": \"Toyota Corolla 1NZ Engine\",\n  \"description\": \"Used engine in excellent condition with warranty\",\n  \"price\": 450.00,\n  \"stockQuantity\": 5\n}"
+                        },
+                        "url": {
+                            "raw": "http://localhost/ecommerce_backend/api/products/add",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "ecommerce_backend",
+                                "api",
+                                "products",
+                                "add"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Product (Admin)",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer YOUR_ADMIN_TOKEN_HERE",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"Toyota Corolla 1NZ Engine - Updated\",\n  \"price\": 400.00,\n  \"stockQuantity\": 3\n}"
+                        },
+                        "url": {
+                            "raw": "http://localhost/ecommerce_backend/api/products/update?id=1",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "ecommerce_backend",
+                                "api",
+                                "products",
+                                "update"
+                            ],
+                            "query": [
+                                {
+                                    "key": "id",
+                                    "value": "1"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Upload Product Image (Admin)",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer YOUR_ADMIN_TOKEN_HERE",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "image",
+                                    "type": "file",
+                                    "src": ""
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "http://localhost/ecommerce_backend/api/products/upload-image?productId=1",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "ecommerce_backend",
+                                "api",
+                                "products",
+                                "upload-image"
+                            ],
+                            "query": [
+                                {
+                                    "key": "productId",
+                                    "value": "1"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Product (Admin)",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer YOUR_ADMIN_TOKEN_HERE",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost/ecommerce_backend/api/products/delete?id=1",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "ecommerce_backend",
+                                "api",
+                                "products",
+                                "delete"
+                            ],
+                            "query": [
+                                {
+                                    "key": "id",
+                                    "value": "1"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Orders",
+            "item": [
+                {
+                    "name": "Get All Orders (Admin)",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer YOUR_ADMIN_TOKEN_HERE",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost/ecommerce_backend/api/orders?status=Pending&page=1&limit=10",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "ecommerce_backend",
+                                "api",
+                                "orders"
+                            ],
+                            "query": [
+                                {
+                                    "key": "status",
+                                    "value": "Pending"
+                                },
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "10"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get My Orders",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer YOUR_TOKEN_HERE",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost/ecommerce_backend/api/orders/my?status=Completed&page=1&limit=10",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "ecommerce_backend",
+                                "api",
+                                "orders",
+                                "my"
+                            ],
+                            "query": [
+                                {
+                                    "key": "status",
+                                    "value": "Completed"
+                                },
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "10"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Order Details",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer YOUR_TOKEN_HERE",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost/ecommerce_backend/api/orders/details?orderId=1",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "ecommerce_backend",
+                                "api",
+                                "orders",
+                                "details"
+                            ],
+                            "query": [
+                                {
+                                    "key": "orderId",
+                                    "value": "1"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Create Order",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer YOUR_TOKEN_HERE",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"items\": [\n    {\n      \"productId\": 1,\n      \"quantity\": 2\n    },\n    {\n      \"productId\": 2,\n      \"quantity\": 1\n    }\n  ],\n  \"customerName\": \"John Doe\",\n  \"customerPhone\": \"0712345678\",\n  \"customerAddress\": \"123 Main Street, Harare\",\n  \"paymentMethod\": \"PayNow\"\n}"
+                        },
+                        "url": {
+                            "raw": "http://localhost/ecommerce_backend/api/orders/create",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "ecommerce_backend",
+                                "api",
+                                "orders",
+                                "create"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Order Status (Admin)",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer YOUR_ADMIN_TOKEN_HERE",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"status\": \"Completed\"\n}"
+                        },
+                        "url": {
+                            "raw": "http://localhost/ecommerce_backend/api/orders/update-status?orderId=1",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "ecommerce_backend",
+                                "api",
+                                "orders",
+                                "update-status"
+                            ],
+                            "query": [
+                                {
+                                    "key": "orderId",
+                                    "value": "1"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Payments",
+            "item": [
+                {
+                    "name": "Initiate Payment",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer YOUR_TOKEN_HERE",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"orderId\": 1\n}"
+                        },
+                        "url": {
+                            "raw": "http://localhost/ecommerce_backend/api/payments/initiate",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "ecommerce_backend",
+                                "api",
+                                "payments",
+                                "initiate"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Payment Status",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer YOUR_TOKEN_HERE",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://localhost/ecommerce_backend/api/payments/status?orderId=1",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "path": [
+                                "ecommerce_backend",
+                                "api",
+                                "payments",
+                                "status"
+                            ],
+                            "query": [
+                                {
+                                    "key": "orderId",
+                                    "value": "1"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
