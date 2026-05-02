@@ -27,22 +27,42 @@ class Database {
 
     //Establish database  connection with retry logic
     private function connect() {
-        $config = [
-            'host' => getenv('DB_HOST') ?: (defined('DB_HOST') ? DB_HOST : 'localhost'),
-            'port' => getenv('DB_PORT') ?: (defined('DB_PORT') ? DB_PORT : '3306'),
-            'dbname' => getenv('DB_NAME') ?: (defined('DB_NAME') ? DB_NAME : 'AutoSpares'),
-            'username' => getenv('DB_USER') ?: (defined('DB_USER') ? DB_USER : 'root'),
-            'password' => getenv('DB_PASS') ?: (defined('DB_PASS') ? DB_PASS : ''),
-        ];
+        $databaseUrl = getenv('DATABASE_URL');
 
-        $dsn = "mysql:host={$config['host']};port={$config['port']};dbname={$config['dbname']};charset=utf8mb4";
+        if (!empty($databaseUrl)) {
+            $parts = parse_url($databaseUrl);
+            $scheme = $parts['scheme'] ?? '';
+            $host = $parts['host'] ?? 'localhost';
+            $port = $parts['port'] ?? ($scheme === 'pgsql' || $scheme === 'postgres' ? 5432 : 3306);
+            $username = $parts['user'] ?? '';
+            $password = $parts['pass'] ?? '';
+            $dbname = isset($parts['path']) ? ltrim($parts['path'], '/') : '';
+
+            if ($scheme === 'pgsql' || $scheme === 'postgres') {
+                $dsn = "pgsql:host={$host};port={$port};dbname={$dbname};sslmode=require";
+            } else {
+                $dsn = "mysql:host={$host};port={$port};dbname={$dbname};charset=utf8mb4";
+            }
+        } else {
+            $config = [
+                'host' => getenv('DB_HOST') ?: (defined('DB_HOST') ? DB_HOST : 'localhost'),
+                'port' => getenv('DB_PORT') ?: (defined('DB_PORT') ? DB_PORT : '3306'),
+                'dbname' => getenv('DB_NAME') ?: (defined('DB_NAME') ? DB_NAME : 'AutoSpares'),
+                'username' => getenv('DB_USER') ?: (defined('DB_USER') ? DB_USER : 'root'),
+                'password' => getenv('DB_PASS') ?: (defined('DB_PASS') ? DB_PASS : ''),
+            ];
+
+            $dsn = "mysql:host={$config['host']};port={$config['port']};dbname={$config['dbname']};charset=utf8mb4";
+            $username = $config['username'];
+            $password = $config['password'];
+        }
 
         while ($this->retryCount < $this->maxRetries) {
             try {
                 $this->connection = new PDO(
                     $dsn,
-                    $config['username'],
-                    $config['password'],
+                    $username,
+                    $password,
                     [
                         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
