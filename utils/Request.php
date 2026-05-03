@@ -27,6 +27,19 @@ class Request {
                 $this->headers[$header] = $value;
             }
         }
+
+        foreach (['AUTHORIZATION', 'REDIRECT_HTTP_AUTHORIZATION'] as $serverKey) {
+            if (!empty($_SERVER[$serverKey])) {
+                $this->headers['authorization'] = $_SERVER[$serverKey];
+            }
+        }
+
+        if (function_exists('apache_request_headers')) {
+            foreach (apache_request_headers() as $key => $value) {
+                $header = strtolower(str_replace('_', '-', $key));
+                $this->headers[$header] = $value;
+            }
+        }
     }
 
     private function parseJsonBody() {
@@ -115,7 +128,11 @@ class Request {
     }
 
     public function getBearerToken() {
-        $header = $this->getHeaders('Authorization');
+        $header = $this->getHeaders('Authorization')
+            ?? $_SERVER['HTTP_AUTHORIZATION']
+            ?? $_SERVER['AUTHORIZATION']
+            ?? $_SERVER['REDIRECT_HTTP_AUTHORIZATION']
+            ?? null;
         if ($header && preg_match('/Bearer\s+(.*)$/i', $header, $matches)) {
             return $matches[1];
         }
