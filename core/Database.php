@@ -29,16 +29,24 @@ class Database {
     private function connect() {
         $databaseUrl = getenv('DATABASE_URL');
 
+        if (empty($databaseUrl)) {
+            $configuredHost = getenv('DB_HOST') ?: (defined('DB_HOST') ? DB_HOST : '');
+            if (preg_match('/^[a-z][a-z0-9+.-]*:\/\//i', $configuredHost)) {
+                $databaseUrl = $configuredHost;
+            }
+        }
+
         if (!empty($databaseUrl)) {
             $parts = parse_url($databaseUrl);
             $scheme = $parts['scheme'] ?? '';
             $host = $parts['host'] ?? 'localhost';
-            $port = $parts['port'] ?? ($scheme === 'pgsql' || $scheme === 'postgres' ? 5432 : 3306);
+            $isPostgres = in_array($scheme, ['pgsql', 'postgres', 'postgresql'], true);
+            $port = $parts['port'] ?? ($isPostgres ? 5432 : 3306);
             $username = $parts['user'] ?? '';
             $password = $parts['pass'] ?? '';
             $dbname = isset($parts['path']) ? ltrim($parts['path'], '/') : '';
 
-            if ($scheme === 'pgsql' || $scheme === 'postgres') {
+            if ($isPostgres) {
                 $dsn = "pgsql:host={$host};port={$port};dbname={$dbname};sslmode=require";
             } else {
                 $dsn = "mysql:host={$host};port={$port};dbname={$dbname};charset=utf8mb4";
