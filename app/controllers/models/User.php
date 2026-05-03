@@ -10,24 +10,56 @@ namespace App\Models;
 class User extends Model {
     protected $table = 'Users';
 
+    private function normalizeUser(?array $user): ?array {
+        if (!$user) {
+            return null;
+        }
+
+        $map = [
+            'firstname' => 'FirstName',
+            'lastname' => 'LastName',
+            'role' => 'Role',
+            'email' => 'Email',
+            'phonenumber' => 'PhoneNumber',
+            'address' => 'Address',
+            'city' => 'City',
+            'country' => 'Country',
+            'password' => 'Password',
+            'createdat' => 'CreatedAt',
+            'updatedat' => 'UpdatedAt',
+        ];
+
+        foreach ($map as $source => $target) {
+            if (array_key_exists($source, $user) && !array_key_exists($target, $user)) {
+                $user[$target] = $user[$source];
+            }
+        }
+
+        return $user;
+    }
+
+    private function normalizeUsers(array $users): array {
+        return array_map(fn($user) => $this->normalizeUser($user), $users);
+    }
+
     /**
      * Find user by email
      */
     public function findByEmail($email) {
-        return $this->getRow(
+        return $this->normalizeUser($this->getRow(
             "SELECT * FROM {$this->table} WHERE Email = ? LIMIT 1",
             [$email]
-        );
+        ));
     }
 
     /**
      * Find user by ID
      */
     public function findById($id) {
-        return $this->getRow(
+        return $this->normalizeUser($this->getRow(
             "SELECT * FROM {$this->table} WHERE id = ? LIMIT 1",
             [$id]
-        );
+        ));
     }
 
     /**
@@ -39,10 +71,10 @@ class User extends Model {
         
         if ($limit) {
             $sql .= " LIMIT ? OFFSET ?";
-            return $this->getRows($sql, [$limit, $offset]);
+            return $this->normalizeUsers($this->getRows($sql, [$limit, $offset]));
         }
         
-        return $this->getRows($sql);
+        return $this->normalizeUsers($this->getRows($sql));
     }
 
     /**
@@ -140,10 +172,10 @@ class User extends Model {
         
         if ($limit) {
             $sql .= " LIMIT ? OFFSET ?";
-            return $this->getRows($sql, [$role, $limit, $offset]);
+            return $this->normalizeUsers($this->getRows($sql, [$role, $limit, $offset]));
         }
         
-        return $this->getRows($sql, [$role]);
+        return $this->normalizeUsers($this->getRows($sql, [$role]));
     }
 }
 
