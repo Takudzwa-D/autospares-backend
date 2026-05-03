@@ -47,6 +47,19 @@ spl_autoload_register(function ($class) {
         $fallback_file = $base_dir . implode('/', $parts) . '.php';
         if (file_exists($fallback_file)) {
             require $fallback_file;
+            return;
+        }
+
+        if ($parts[0] === 'models') {
+            $legacy_model_file = $base_dir . 'controllers/models/' . basename($fallback_file);
+            if (file_exists($legacy_model_file)) {
+                $legacy_base_model_file = $base_dir . 'controllers/models/Model.php';
+                if (basename($legacy_model_file) !== 'Model.php' && !class_exists('App\\Models\\Model', false) && file_exists($legacy_base_model_file)) {
+                    require $legacy_base_model_file;
+                }
+
+                require $legacy_model_file;
+            }
         }
     }
 });
