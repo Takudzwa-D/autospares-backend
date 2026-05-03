@@ -92,6 +92,7 @@ define('CORS_ORIGINS', [
     'https://autospares-alpha.vercel.app/',
     'http://localhost:8080',
     'http://127.0.0.1:3000',
+    'https://autospares-alpha.vercel.app',
     getenv('FRONTEND_URL') ?: null,
 ]);
 define('CORS_METHODS', ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS']);

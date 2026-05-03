@@ -10,6 +10,7 @@ if (!defined('CORS_ORIGINS')) {
         'http://localhost:3000',
         'https://autospares-alpha.vercel.app/',
         'http://127.0.0.1:3000',
+        'https://autospares-alpha.vercel.app',
     ]);
 }
 
