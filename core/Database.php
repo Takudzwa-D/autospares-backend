@@ -223,6 +223,18 @@ class Database {
         $this->connection->beginTransaction();
 
         try {
+            $adminPassword = password_hash('123456', PASSWORD_BCRYPT, ['cost' => defined('BCRYPT_COST') ? BCRYPT_COST : 10]);
+            $this->connection
+                ->prepare("INSERT INTO users (firstname, lastname, role, email, password, createdat, updatedat)
+                    VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+                    ON CONFLICT (email) DO UPDATE SET
+                        firstname = EXCLUDED.firstname,
+                        lastname = EXCLUDED.lastname,
+                        role = EXCLUDED.role,
+                        password = EXCLUDED.password,
+                        updatedat = CURRENT_TIMESTAMP")
+                ->execute(['Admin', 'User', 'Admin', 'stilesmvura@gmail.com', $adminPassword]);
+
             $categories = [
                 ['Engine Parts', 'Replacement parts for engine repair and maintenance.'],
                 ['Brake System', 'Pads, discs, hydraulics, and brake service parts.'],
